@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using api.Interfaces;
 using api.Repository;
 using api.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controllers
 {

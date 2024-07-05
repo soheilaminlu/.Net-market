@@ -17,7 +17,7 @@ namespace api.Repository
         }
         public async Task<List<Comment>> GetAllCommentAsync()
         {
-         return await _context.Comments.ToListAsync();
+         return await _context.Comments.Include(c => c.User).ToListAsync();
         }
         public async Task<Comment?> GetByIdAsync(int id)
         {
@@ -31,7 +31,7 @@ namespace api.Repository
        }
        public async Task<Comment> UpdateAsync(int commentId  , UpdateRequestComment commentDto)
        {
-        var existingComment = await _context.Comments.FirstOrDefaultAsync(c => c.Id  == commentId);
+        var existingComment = await _context.Comments.Include(c => c.User).FirstOrDefaultAsync(c => c.Id  == commentId);
         if(existingComment == null) {
             return null;
         }

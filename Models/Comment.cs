@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace api.Models
 {
@@ -15,5 +16,7 @@ namespace api.Models
         public DateTime CreatedOn {get; set;} = DateTime.Now;
         public int? StockId { get; set; }
         public Stock? Stock {get; set;}
+        public string? UserId {get; set;}
+        public User? User {get; set;}
     }
 }

@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using api.Models;
 using Microsoft.AspNetCore.Authorization;
 using api.Extenstion;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace api.Controllers
 {
@@ -57,6 +58,42 @@ namespace api.Controllers
          return Ok(portfolio);
 
 
+        }
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> CreatePortfolio(string symbol)
+        {
+            var username = User.GetUserName();
+            var user = await _user.FindByNameAsync(username);
+            var stock = await _stockRepo.GetBySymbolasync(symbol);
+            if (stock == null) return BadRequest("Not Found Stock");
+            var userPortfolio = await _portfolioRepo.GetUserPortfolio(user);
+            if(userPortfolio.Any(e => e.Symbol.ToLower() == symbol.ToLower()))
+            {
+                return BadRequest("can not add same stock to portfolio");
+            }
+            var portfolio = new Portfolio 
+            {
+                StockId = stock.Id,
+                UserId = user.Id
+            };
+            await _portfolioRepo.CreatePortfolio(portfolio);
+            return Ok(portfolio);
+        }
+
+        public async Task<IActionResult> DeletePortfo(string symbol)
+        {
+               var username = User.GetUserName();
+            var user = await _user.FindByNameAsync(username);
+            var userPortfolio = await _portfolioRepo.GetUserPortfolio(user);
+            var filteredStock = userPortfolio.Where(s => s.Symbol.ToLower() == symbol.ToLower());
+            if(filteredStock.Count() == 1)
+            {
+             await _portfolioRepo.DeletePortfolio(user ,symbol);
+            } else {
+                BadRequest("FilterStocked is not in your portfolio");
+            }
+            return Ok();
         }
     }
 }

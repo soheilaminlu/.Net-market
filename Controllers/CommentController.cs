@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using api.Mappers;
 using api.Dto;
 using api.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using api.Models;
+using api.Extenstion;
 namespace api.Controllers
 {
     [Route("api/comment")]
@@ -18,12 +21,14 @@ namespace api.Controllers
         private readonly ApplicationDBContext _context;
         private readonly ICommentRepository _commentRepo;
         private IStockRepository _stockRepo;
+        private readonly UserManager<User> _user;
 
-        public CommentController(ApplicationDBContext context , ICommentRepository commentRepo , IStockRepository stockRepo)
+        public CommentController(ApplicationDBContext context , ICommentRepository commentRepo , IStockRepository stockRepo , UserManager<User> user)
         {
             _commentRepo = commentRepo;
             _context = context;
             _stockRepo = stockRepo;
+            _user = user;
         }
 
 
@@ -57,7 +62,13 @@ namespace api.Controllers
         {
             return BadRequest("Stock Does Not Exist");
         }
+        var username = User.GetUserName();
+        var user = _user.FindByNameAsync(username);
+        if(user == null) {
+            return NotFound("Not Found User");
+        }
         var commentModel = comment.ToCommentFromCreate(stockId);
+        commentModel.UserId = user.Id.ToString();
         await _commentRepo.CreateAsync(commentModel);
         return CreatedAtAction(nameof(GetById) , new {id = commentModel.Id} , commentModel.ToCommentDto());
 }

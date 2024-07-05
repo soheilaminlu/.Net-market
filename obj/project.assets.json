@@ -4682,24 +4682,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\user\\.nuget\\packages\\": {}
+    "C:\\Users\\sejron.com\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\Desktop\\Net-Market-master\\.Net-Market-master\\api\\api.csproj",
+      "projectUniqueName": "D:\\.Net\\.Net-market\\api.csproj",
       "projectName": "api",
-      "projectPath": "C:\\Users\\user\\Desktop\\Net-Market-master\\.Net-Market-master\\api\\api.csproj",
-      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\Desktop\\Net-Market-master\\.Net-Market-master\\api\\obj\\",
+      "projectPath": "D:\\.Net\\.Net-market\\api.csproj",
+      "packagesPath": "C:\\Users\\sejron.com\\.nuget\\packages\\",
+      "outputPath": "D:\\.Net\\.Net-market\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\sejron.com\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
